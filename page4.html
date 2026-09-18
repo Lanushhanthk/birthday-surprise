@@ -4,31 +4,436 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>One last wish for you</title>
+
   <style>
-    :root { --pink:#e84e8b; --ink:#b84975; --paper:#fff0f5; }
-    * { box-sizing:border-box; }
-    body { min-width:900px; min-height:100vh; margin:0; overflow:hidden; color:var(--ink); font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif; background:radial-gradient(circle at 50% 38%,#fff9dc 0%,#ffe9ef 35%,#f7c4dc 100%); }
-    .ribbon { position:fixed; z-index:0; top:0; left:0; right:0; height:68px; background:linear-gradient(105deg,#e94b8a 0 6%,#f26ba0 6% 20%,#e94b8a 20% 34%,#f06aa2 34% 46%,#e94b8a 46% 61%,#f471a8 61% 78%,#e94b8a 78%); clip-path:polygon(0 0,100% 0,100% 64%,94% 48%,88% 75%,80% 54%,72% 72%,63% 48%,55% 73%,47% 51%,38% 75%,29% 50%,21% 70%,13% 48%,5% 67%,0 52%); }
-    .spark { position:fixed; z-index:0; width:8px; height:8px; border-radius:50%; background:var(--c); left:var(--x); top:var(--y); animation:drift var(--d) ease-in-out var(--delay) infinite alternate; } @keyframes drift { to { transform:translate(var(--dx),var(--dy)) rotate(70deg); } }
-    main { position:relative; z-index:1; min-height:100vh; width:min(900px,90vw); margin:auto; padding:42px 45px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    h1 { margin:0 0 35px; color:var(--pink); font-family:Georgia,serif; font-size:clamp(3rem,6vw,5.7rem); font-style:italic; line-height:.9; text-shadow:2px 2px #fff7db; animation:drop .8s cubic-bezier(.2,1.25,.4,1) both; }
-    .card { width:100%; padding:26px 58px 34px; border:3px solid #fffaf4; border-radius:32px; background:#fffaf0b8; box-shadow:0 16px 38px #a23d6b25; animation:fade .9s .3s both; }
-    .message { margin:0; font-size:clamp(1.07rem,2vw,1.35rem); line-height:1.75; letter-spacing:.01em; } .signature { margin:36px 0 0; color:#f04b87; font-family:Georgia,serif; font-size:clamp(1.25rem,2.7vw,1.75rem); font-weight:bold; font-style:italic; } .last-link { display:inline-block; margin-top:26px; padding:13px 27px; border-radius:999px; background:linear-gradient(135deg,#f04b87,#a8346a); color:white; box-shadow:0 5px 0 #8d2557; font-weight:bold; text-decoration:none; }
-    @keyframes drop { from { opacity:0; transform:translateY(-30px) rotate(-4deg); } to { opacity:1; transform:none; } } @keyframes fade { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
-    @media(max-width:900px){ body{min-width:0;overflow:auto;} main{width:100%;padding:55px 15px 35px}.card{padding:25px 20px 31px;} h1{margin-bottom:27px;} }
+    :root {
+      --pink:#e84e8b;
+      --ink:#b84975;
+      --paper:#fff0f5;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html,
+    body {
+      width:100%;
+      height:100%;
+      margin:0;
+      overflow:hidden;
+    }
+
+    body {
+      min-height:100vh;
+      color:var(--ink);
+      font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif;
+      background:
+        radial-gradient(
+          circle at 50% 38%,
+          #fff9dc 0%,
+          #ffe9ef 35%,
+          #f7c4dc 100%
+        );
+    }
+
+    .ribbon {
+      position:fixed;
+      z-index:0;
+      top:0;
+      left:0;
+      right:0;
+      height:clamp(42px,7vh,68px);
+      background:
+        linear-gradient(
+          105deg,
+          #e94b8a 0 6%,
+          #f26ba0 6% 20%,
+          #e94b8a 20% 34%,
+          #f06aa2 34% 46%,
+          #e94b8a 46% 61%,
+          #f471a8 61% 78%,
+          #e94b8a 78%
+        );
+      clip-path:
+        polygon(
+          0 0,
+          100% 0,
+          100% 64%,
+          94% 48%,
+          88% 75%,
+          80% 54%,
+          72% 72%,
+          63% 48%,
+          55% 73%,
+          47% 51%,
+          38% 75%,
+          29% 50%,
+          21% 70%,
+          13% 48%,
+          5% 67%,
+          0 52%
+        );
+    }
+
+    .spark {
+      position:fixed;
+      z-index:0;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--c);
+      left:var(--x);
+      top:var(--y);
+      animation:
+        drift
+        var(--d)
+        ease-in-out
+        var(--delay)
+        infinite
+        alternate;
+    }
+
+    @keyframes drift {
+      to {
+        transform:
+          translate(var(--dx),var(--dy))
+          rotate(70deg);
+      }
+    }
+
+    main {
+      position:relative;
+      z-index:1;
+      width:min(900px,94vw);
+      height:100vh;
+      min-height:0;
+      margin:auto;
+      padding:
+        clamp(55px,10vh,85px)
+        clamp(15px,4vw,45px)
+        clamp(12px,3vh,25px);
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+
+      text-align:center;
+    }
+
+    h1 {
+      margin:0 0 clamp(14px,3vh,30px);
+      color:var(--pink);
+      font-family:Georgia,serif;
+      font-size:clamp(2.2rem,6vw,5.7rem);
+      font-style:italic;
+      line-height:.95;
+      text-shadow:2px 2px #fff7db;
+      animation:
+        drop
+        .8s
+        cubic-bezier(.2,1.25,.4,1)
+        both;
+      flex-shrink:0;
+    }
+
+    .card {
+      width:100%;
+      max-height:calc(100vh - 145px);
+      overflow:hidden;
+
+      padding:
+        clamp(16px,3vh,26px)
+        clamp(18px,5vw,58px)
+        clamp(18px,3vh,30px);
+
+      border:3px solid #fffaf4;
+      border-radius:32px;
+      background:#fffaf0b8;
+      box-shadow:0 16px 38px #a23d6b25;
+
+      animation:
+        fade
+        .9s
+        .3s
+        both;
+    }
+
+    .message {
+      margin:0;
+      font-size:clamp(.82rem,1.8vw,1.35rem);
+      line-height:clamp(1.35,2vw,1.7);
+      letter-spacing:.01em;
+    }
+
+    .signature {
+      margin:
+        clamp(14px,2.5vh,28px)
+        0
+        0;
+
+      color:#f04b87;
+      font-family:Georgia,serif;
+      font-size:clamp(1rem,2.5vw,1.75rem);
+      font-weight:bold;
+      font-style:italic;
+    }
+
+    .last-link {
+      display:inline-block;
+      margin-top:clamp(12px,2.5vh,22px);
+      padding:
+        clamp(9px,1.8vh,13px)
+        clamp(20px,3vw,27px);
+
+      border-radius:999px;
+      background:
+        linear-gradient(
+          135deg,
+          #f04b87,
+          #a8346a
+        );
+
+      color:white;
+      box-shadow:0 5px 0 #8d2557;
+      font-weight:bold;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .last-link:hover {
+      transform:translateY(-2px);
+    }
+
+    @keyframes drop {
+      from {
+        opacity:0;
+        transform:
+          translateY(-30px)
+          rotate(-4deg);
+      }
+
+      to {
+        opacity:1;
+        transform:none;
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity:0;
+        transform:translateY(26px);
+      }
+
+      to {
+        opacity:1;
+        transform:none;
+      }
+    }
+
+
+    /* Smaller screens */
+    @media(max-width:700px) {
+
+      main {
+        width:100%;
+        padding:
+          48px
+          12px
+          10px;
+      }
+
+      h1 {
+        margin-bottom:14px;
+        font-size:clamp(2rem,9vw,3.2rem);
+      }
+
+      .card {
+        max-height:calc(100vh - 120px);
+        padding:
+          16px
+          14px
+          20px;
+        border-radius:24px;
+      }
+
+      .message {
+        font-size:clamp(.76rem,3.2vw,.95rem);
+        line-height:1.42;
+      }
+
+      .signature {
+        margin-top:14px;
+        font-size:clamp(.9rem,4vw,1.2rem);
+      }
+
+      .last-link {
+        margin-top:12px;
+        padding:9px 20px;
+        font-size:.85rem;
+      }
+    }
+
+
+    /* Short desktop screens */
+    @media(max-height:700px) and (min-width:701px) {
+
+      main {
+        padding-top:70px;
+        padding-bottom:8px;
+      }
+
+      h1 {
+        margin-bottom:12px;
+        font-size:clamp(2rem,5vw,3.7rem);
+      }
+
+      .card {
+        max-height:calc(100vh - 125px);
+        padding:
+          14px
+          40px
+          18px;
+      }
+
+      .message {
+        font-size:clamp(.82rem,1.6vw,1.05rem);
+        line-height:1.4;
+      }
+
+      .signature {
+        margin-top:12px;
+        font-size:1.1rem;
+      }
+
+      .last-link {
+        margin-top:10px;
+        padding:9px 22px;
+        font-size:.9rem;
+      }
+    }
+
+
+    /* Very short screens */
+    @media(max-height:560px) {
+
+      main {
+        padding-top:48px;
+      }
+
+      h1 {
+        font-size:clamp(1.7rem,5vw,2.7rem);
+        margin-bottom:8px;
+      }
+
+      .card {
+        padding:
+          10px
+          25px
+          12px;
+        border-radius:20px;
+      }
+
+      .message {
+        font-size:.75rem;
+        line-height:1.28;
+      }
+
+      .signature {
+        margin-top:8px;
+        font-size:.9rem;
+      }
+
+      .last-link {
+        margin-top:7px;
+        padding:7px 18px;
+        font-size:.75rem;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <div class="ribbon"></div>
+
   <main>
-    <h1>One last wish for you</h1>
+
+    <h1>
+      One last wish for you
+    </h1>
+
     <section class="card">
-      <p class="message">This is my little prayer for you, Selvi — that this new<br>year of yours brings you exactly what you’ve been<br>quietly hoping for. That the things you’ve been<br>working toward finally start falling into place, that you<br>feel proud of yourself far more often than you doubt<br>yourself, and that the people you love keep showing<br>up for you the way you always show up for them.<br>Whatever you’ve been manifesting — I hope it<br>reaches you, at least 75% of it, before this year is even<br>done. And for the rest — I’ll be right here, rooting for<br>you the whole way.</p>
-      <p class="signature">– a real sister from another mother ❤️ 🫂</p><a class="last-link" href="page5.html">One more thing… ✨</a>
+
+      <p class="message">
+        This is my little prayer for you, Selvi — that this new
+        <br>
+        year of yours brings you exactly what you’ve been
+        <br>
+        quietly hoping for. That the things you’ve been
+        <br>
+        working toward finally start falling into place, that you
+        <br>
+        feel proud of yourself far more often than you doubt
+        <br>
+        yourself, and that the people you love keep showing
+        <br>
+        up for you the way you always show up for them.
+        <br>
+        Whatever you’ve been manifesting — I hope it
+        <br>
+        reaches you, at least 75% of it, before this year is even
+        <br>
+        done. And for the rest — I’ll be right here, rooting for
+        <br>
+        you the whole way.
+      </p>
+
+      <p class="signature">
+        – a real sister from another mother ❤️ 🫂
+      </p>
+
+      <a class="last-link" href="page5.html">
+        One more thing… ✨
+      </a>
+
     </section>
+
   </main>
+
+
   <script>
-    const colors=['#f04b87','#ffd75c','#7f6cd9','#60c7b1','#fff']; for(let i=0;i<28;i++){const s=document.createElement('i');s.className='spark';s.style.cssText=`--c:${colors[i%colors.length]};--x:${Math.random()*100}%;--y:${8+Math.random()*89}%;--d:${2+Math.random()*3}s;--delay:-${Math.random()*3}s;--dx:${-25+Math.random()*50}px;--dy:${-25+Math.random()*50}px`;document.body.append(s);}
+
+    const colors = [
+      '#f04b87',
+      '#ffd75c',
+      '#7f6cd9',
+      '#60c7b1',
+      '#fff'
+    ];
+
+    for (let i = 0; i < 28; i++) {
+
+      const s =
+        document.createElement('i');
+
+      s.className = 'spark';
+
+      s.style.cssText = `
+        --c:${colors[i % colors.length]};
+        --x:${Math.random() * 100}%;
+        --y:${8 + Math.random() * 89}%;
+        --d:${2 + Math.random() * 3}s;
+        --delay:-${Math.random() * 3}s;
+        --dx:${-25 + Math.random() * 50}px;
+        --dy:${-25 + Math.random() * 50}px;
+      `;
+
+      document.body.append(s);
+    }
+
   </script>
+
 </body>
 </html>
