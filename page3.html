@@ -528,66 +528,173 @@
 
     // Clapping sound when the candle is successfully blown out
     function applause() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const a = new AudioCtx();
 
+    const master = a.createGain();
+    master.gain.setValueAtTime(0.8, a.currentTime);
+    master.connect(a.destination);
+
+    // Create a natural crowd-style applause:
+    // irregular timing, different volumes and slightly different clap lengths
+    const claps = [
+      0.00, 0.12, 0.24, 0.39, 0.51,
+      0.67, 0.79, 0.94, 1.08, 1.20,
+      1.35, 1.48, 1.63, 1.77, 1.91,
+      2.06, 2.18, 2.34
+    ];
+
+    claps.forEach((time, index) => {
+
+      const start = a.currentTime + time;
+
+      // Slightly different volume for every clap
+      const volume =
+        0.16 +
+        Math.random() * 0.18;
+
+      const duration =
+        0.045 +
+        Math.random() * 0.045;
+
+      // Noise buffer for the actual hand-clap sound
+      const buffer =
+        a.createBuffer(
+          1,
+          Math.floor(a.sampleRate * duration),
+          a.sampleRate
+        );
+
+      const data =
+        buffer.getChannelData(0);
+
+      for (let i = 0; i < data.length; i++) {
+
+        const t = i / data.length;
+
+        // Sharp attack followed by a very quick decay
+        const envelope =
+          Math.pow(1 - t, 2.8);
+
+        data[i] =
+          (Math.random() * 2 - 1) *
+          envelope;
+
+      }
+
+      const source =
+        a.createBufferSource();
+
+      source.buffer = buffer;
+
+
+      // Remove the harsh high-frequency metallic sound
+      const highpass =
+        a.createBiquadFilter();
+
+      highpass.type = "highpass";
+      highpass.frequency.value = 250;
+
+
+      const lowpass =
+        a.createBiquadFilter();
+
+      lowpass.type = "lowpass";
+
+      // Different clap brightness each time
+      lowpass.frequency.value =
+        1200 + Math.random() * 900;
+
+
+      // Shape each individual clap
+      const gain =
+        a.createGain();
+
+      gain.gain.setValueAtTime(
+        0.001,
+        start
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        volume,
+        start + 0.004
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        start + duration
+      );
+
+
+      source
+        .connect(highpass)
+        .connect(lowpass)
+        .connect(gain)
+        .connect(master);
+
+      source.start(start);
+      source.stop(start + duration + 0.01);
+
+
+      // Add a very soft second layer to some claps,
+      // making them feel less like identical computer sounds.
+      if (index % 3 === 0) {
+
+        const second =
+          a.createBufferSource();
+
+        second.buffer = buffer;
+
+        const secondGain =
+          a.createGain();
+
+        secondGain.gain.setValueAtTime(
+          0.001,
+          start + 0.008
+        );
+
+        secondGain.gain.exponentialRampToValueAtTime(
+          volume * 0.28,
+          start + 0.014
+        );
+
+        secondGain.gain.exponentialRampToValueAtTime(
+          0.001,
+          start + duration + 0.015
+        );
+
+        second
+          .connect(highpass)
+          .connect(lowpass)
+          .connect(secondGain)
+          .connect(master);
+
+        second.start(start + 0.008);
+        second.stop(start + duration + 0.02);
+      }
+
+    });
+
+    // Fade the whole applause out naturally
+    master.gain.setValueAtTime(
+      0.8,
+      a.currentTime
+    );
+
+    master.gain.exponentialRampToValueAtTime(
+      0.001,
+      a.currentTime + 2.7
+    );
+
+    setTimeout(() => {
       try {
-
-        const a = new (window.AudioContext || window.webkitAudioContext)();
-
-        for (let k = 0; k < 18; k++) {
-
-          const at =
-            k * 0.105 +
-            (Math.random() * 0.04);
-
-          const duration =
-            0.075 +
-            Math.random() * 0.06;
-
-          const b =
-            a.createBuffer(
-              1,
-              a.sampleRate * duration,
-              a.sampleRate
-            );
-
-          const d =
-            b.getChannelData(0);
-
-          const s =
-            a.createBufferSource();
-
-          const g =
-            a.createGain();
-
-          for (let i = 0; i < d.length; i++) {
-
-            d[i] =
-              (Math.random() * 2 - 1) *
-              (1 - i / d.length);
-
-          }
-
-          s.buffer = b;
-
-          g.gain.setValueAtTime(
-            0.12 + Math.random() * 0.08,
-            a.currentTime + at
-          );
-
-          g.gain.exponentialRampToValueAtTime(
-            0.001,
-            a.currentTime + at + duration
-          );
-
-          s.connect(g).connect(a.destination);
-
-          s.start(a.currentTime + at);
-
-        }
-
+        a.close();
       } catch {}
+    }, 3200);
 
-    }
+  } catch {}
+}
 
 
     function reveal() {
