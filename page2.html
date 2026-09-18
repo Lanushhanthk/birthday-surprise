@@ -4,47 +4,740 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A little message for Selvi</title>
+
   <style>
-    :root { --ink:#5b174f; --pink:#f85289; --lav:#7464d8; --gold:#ffd65a; }
-    * { box-sizing:border-box; }
-    body { min-width:900px; margin:0; min-height:100vh; overflow:hidden; color:var(--ink); font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif; background:radial-gradient(circle at 50% 45%,#fff8dc 0 9%,#ffdddb 33%,#c9c5ff 100%); }
-    .sparkles { position:fixed; inset:0; pointer-events:none; background-image:radial-gradient(#fff 1.5px,transparent 2.5px),radial-gradient(#fff7b6 1.5px,transparent 2.5px); background-size:78px 78px,117px 117px; background-position:10px 5px,33px 50px; opacity:.7; animation:twinkle 2s ease-in-out infinite alternate; }
-    @keyframes twinkle { to { opacity:.25; } }
-    main { position:relative; width:min(1120px,95vw); height:100vh; margin:auto; padding:43px 35px; text-align:center; }
-    h1 { margin:0; font-family:Georgia,serif; font-size:clamp(2.5rem,4.5vw,4.4rem); line-height:1; color:#a41d5a; text-shadow:3px 3px #fff8ed; }
-    .intro { margin:12px 0 0; font-size:1.1rem; font-weight:bold; color:#6d3961; }
-    .balloon-zone { position:relative; height:calc(100vh - 180px); max-height:600px; margin:12px auto 0; }
-    .balloon { position:absolute; width:145px; height:170px; border:0; border-radius:50% 50% 48% 48%; background:var(--balloon); color:white; cursor:pointer; box-shadow:inset -17px -15px #00000014, 0 12px 20px #7d2d6740; font:900 1.05rem "Trebuchet MS",sans-serif; padding:30px 17px; transition:filter .2s; animation:float var(--speed) ease-in-out var(--delay) infinite; }
-    .balloon:hover { filter:brightness(1.12); } .balloon:before { content:""; position:absolute; width:28px; height:19px; left:calc(50% - 14px); bottom:-12px; background:var(--balloon); clip-path:polygon(0 0,100% 0,50% 100%); }
-    .balloon:after { content:""; position:absolute; left:50%; bottom:-103px; height:96px; border-left:1.5px solid #8b5473; transform:rotate(5deg); }
-    .balloon.pop { animation:pop .42s cubic-bezier(.2,.8,.2,1) forwards; pointer-events:none; } @keyframes pop { 55% { transform:scale(1.35); filter:brightness(1.5); opacity:1; } 100% { transform:scale(0); opacity:0; } }
-    .balloon.runaway { animation:dodge .52s ease-in-out both !important; } @keyframes dodge { 35% { transform:translate(var(--run-x),-38px) rotate(13deg) scale(1.08); } 68% { transform:translate(var(--return-x),-12px) rotate(-7deg); } 100% { transform:translate(0,0); } }
-    @keyframes float { 50% { translate:0 -22px; rotate:3deg; } }
-    .b1{left:5%;top:12%;--balloon:#f75484;--speed:3.5s;--delay:-1s}.b2{left:24%;top:43%;--balloon:#7263d5;--speed:4.3s;--delay:-.2s}.b3{left:43%;top:12%;--balloon:#ffb940;--speed:3.8s;--delay:-2s}.b4{right:24%;top:42%;--balloon:#59b9aa;--speed:4.6s;--delay:-1s}.b5{right:5%;top:12%;--balloon:#ef6da8;--speed:3.4s;--delay:-.4s}
-    .word-reveal { position:absolute; z-index:4; width:145px; text-align:center; color:#8d2453; font:900 1.25rem Georgia,serif; text-shadow:1px 1px #fff; pointer-events:none; animation:wordIn .65s cubic-bezier(.2,1.4,.4,1) both; } @keyframes wordIn { from { opacity:0; transform:scale(.2) rotate(-12deg); } to { opacity:1; transform:scale(1) rotate(0); } }
-    #final { position:absolute; z-index:5; inset:25% 0 auto; display:none; padding:45px 30px; border:4px solid #fff8e9; border-radius:35px; background:#fffaf1e8; box-shadow:0 22px 50px #6d205b45; }
-    #final.show { display:block; animation:messageIn .8s cubic-bezier(.22,1.4,.4,1) both; } @keyframes messageIn { from { opacity:0; transform:scale(.3) rotate(-5deg); } to { opacity:1; transform:scale(1) rotate(0); } }
-    #final .heart { display:block; color:#f75187; font-size:2.7rem; line-height:1; animation:heart 1s ease-in-out infinite alternate; } @keyframes heart { to { transform:scale(1.22); } }
-    #final h2 { margin:12px 0 5px; color:#a41d5a; font-family:Georgia,serif; font-size:clamp(2.2rem,5vw,5rem); text-shadow:2px 2px #ffdce7; } #final p { margin:0; font-size:1.15rem; font-weight:bold; color:#764165; } .next-page { display:inline-block; margin-top:21px; padding:12px 25px; border-radius:999px; color:white; background:linear-gradient(135deg,#f85289,#a62f70); box-shadow:0 5px 0 #8e2356; text-decoration:none; font-weight:900; }
-    .burst { position:fixed; z-index:9; width:11px; height:11px; border-radius:50%; pointer-events:none; background:var(--c); animation:burst .7s ease-out forwards; } @keyframes burst { to { transform:translate(var(--x),var(--y)) scale(.1); opacity:0; } }
-    @media (max-width:900px) { body { min-width:0; overflow:auto; } main { padding:36px 14px; } .balloon-zone { min-height:580px; } .balloon { scale:.78; } .b1{left:0}.b2{left:16%;top:43%}.b3{left:39%}.b4{right:16%;top:43%}.b5{right:0} }
+    :root {
+      --ink:#5b174f;
+      --pink:#f85289;
+      --lav:#7464d8;
+      --gold:#ffd65a;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    body {
+      min-width:0;
+      width:100%;
+      height:100vh;
+      min-height:100vh;
+      margin:0;
+      overflow:hidden;
+      color:var(--ink);
+      font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif;
+      background:
+        radial-gradient(circle at 50% 45%,#fff8dc 0 9%,#ffdddb 33%,#c9c5ff 100%);
+    }
+
+    .sparkles {
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(#fff 1.5px,transparent 2.5px),
+        radial-gradient(#fff7b6 1.5px,transparent 2.5px);
+      background-size:78px 78px,117px 117px;
+      background-position:10px 5px,33px 50px;
+      opacity:.7;
+      animation:twinkle 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      to {
+        opacity:.25;
+      }
+    }
+
+    main {
+      position:relative;
+      width:min(1120px,100%);
+      height:100vh;
+      min-height:0;
+      margin:auto;
+      padding:clamp(18px,3vh,35px) 25px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    h1 {
+      margin:0;
+      font-family:Georgia,serif;
+      font-size:clamp(2rem,4.5vw,4.2rem);
+      line-height:1;
+      color:#a41d5a;
+      text-shadow:3px 3px #fff8ed;
+    }
+
+    .intro {
+      margin:8px 0 0;
+      font-size:clamp(.85rem,1.6vw,1.1rem);
+      font-weight:bold;
+      color:#6d3961;
+    }
+
+    .balloon-zone {
+      position:relative;
+      height:min(68vh,560px);
+      width:100%;
+      max-width:1000px;
+      margin:5px auto 0;
+      flex:1;
+      min-height:0;
+    }
+
+    .balloon {
+      position:absolute;
+      width:clamp(100px,12vw,145px);
+      height:clamp(120px,14vw,170px);
+      border:0;
+      border-radius:50% 50% 48% 48%;
+      background:var(--balloon);
+      color:white;
+      cursor:pointer;
+      box-shadow:
+        inset -17px -15px #00000014,
+        0 12px 20px #7d2d6740;
+      font:900 clamp(.85rem,1.5vw,1.05rem) "Trebuchet MS",sans-serif;
+      padding:20px 12px;
+      transition:filter .2s;
+      animation:float var(--speed) ease-in-out var(--delay) infinite;
+    }
+
+    .balloon:hover {
+      filter:brightness(1.12);
+    }
+
+    .balloon:before {
+      content:"";
+      position:absolute;
+      width:28px;
+      height:19px;
+      left:calc(50% - 14px);
+      bottom:-12px;
+      background:var(--balloon);
+      clip-path:polygon(0 0,100% 0,50% 100%);
+    }
+
+    .balloon:after {
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-103px;
+      height:96px;
+      border-left:1.5px solid #8b5473;
+      transform:rotate(5deg);
+    }
+
+    .balloon.pop {
+      animation:pop .42s cubic-bezier(.2,.8,.2,1) forwards;
+      pointer-events:none;
+    }
+
+    @keyframes pop {
+      55% {
+        transform:scale(1.35);
+        filter:brightness(1.5);
+        opacity:1;
+      }
+
+      100% {
+        transform:scale(0);
+        opacity:0;
+      }
+    }
+
+    .balloon.runaway {
+      animation:dodge .52s ease-in-out both !important;
+    }
+
+    @keyframes dodge {
+      35% {
+        transform:
+          translate(var(--run-x),-38px)
+          rotate(13deg)
+          scale(1.08);
+      }
+
+      68% {
+        transform:
+          translate(var(--return-x),-12px)
+          rotate(-7deg);
+      }
+
+      100% {
+        transform:translate(0,0);
+      }
+    }
+
+    @keyframes float {
+      50% {
+        translate:0 -22px;
+        rotate:3deg;
+      }
+    }
+
+    .b1 {
+      left:5%;
+      top:12%;
+      --balloon:#f75484;
+      --speed:3.5s;
+      --delay:-1s;
+    }
+
+    .b2 {
+      left:24%;
+      top:43%;
+      --balloon:#7263d5;
+      --speed:4.3s;
+      --delay:-.2s;
+    }
+
+    .b3 {
+      left:43%;
+      top:12%;
+      --balloon:#ffb940;
+      --speed:3.8s;
+      --delay:-2s;
+    }
+
+    .b4 {
+      right:24%;
+      top:42%;
+      --balloon:#59b9aa;
+      --speed:4.6s;
+      --delay:-1s;
+    }
+
+    .b5 {
+      right:5%;
+      top:12%;
+      --balloon:#ef6da8;
+      --speed:3.4s;
+      --delay:-.4s;
+    }
+
+    .word-reveal {
+      position:absolute;
+      z-index:4;
+      width:clamp(100px,12vw,145px);
+      text-align:center;
+      color:#8d2453;
+      font:900 clamp(1rem,1.8vw,1.25rem) Georgia,serif;
+      text-shadow:1px 1px #fff;
+      pointer-events:none;
+      animation:wordIn .65s cubic-bezier(.2,1.4,.4,1) both;
+    }
+
+    @keyframes wordIn {
+      from {
+        opacity:0;
+        transform:scale(.2) rotate(-12deg);
+      }
+
+      to {
+        opacity:1;
+        transform:scale(1) rotate(0);
+      }
+    }
+
+    #final {
+      position:absolute;
+      z-index:5;
+      inset:18% 4% auto;
+      display:none;
+      padding:clamp(22px,4vh,45px) 25px;
+      border:4px solid #fff8e9;
+      border-radius:35px;
+      background:#fffaf1e8;
+      box-shadow:0 22px 50px #6d205b45;
+    }
+
+    #final.show {
+      display:block;
+      animation:messageIn .8s cubic-bezier(.22,1.4,.4,1) both;
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity:0;
+        transform:scale(.3) rotate(-5deg);
+      }
+
+      to {
+        opacity:1;
+        transform:scale(1) rotate(0);
+      }
+    }
+
+    #final .heart {
+      display:block;
+      color:#f75187;
+      font-size:2.7rem;
+      line-height:1;
+      animation:heart 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes heart {
+      to {
+        transform:scale(1.22);
+      }
+    }
+
+    #final h2 {
+      margin:12px 0 5px;
+      color:#a41d5a;
+      font-family:Georgia,serif;
+      font-size:clamp(1.8rem,4.5vw,5rem);
+      text-shadow:2px 2px #ffdce7;
+    }
+
+    #final p {
+      margin:0;
+      font-size:clamp(.9rem,1.8vw,1.15rem);
+      font-weight:bold;
+      color:#764165;
+    }
+
+    .next-page {
+      display:inline-block;
+      margin-top:16px;
+      padding:11px 24px;
+      border-radius:999px;
+      color:white;
+      background:linear-gradient(135deg,#f85289,#a62f70);
+      box-shadow:0 5px 0 #8e2356;
+      text-decoration:none;
+      font-weight:900;
+    }
+
+    .burst {
+      position:fixed;
+      z-index:9;
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      pointer-events:none;
+      background:var(--c);
+      animation:burst .7s ease-out forwards;
+    }
+
+    @keyframes burst {
+      to {
+        transform:
+          translate(var(--x),var(--y))
+          scale(.1);
+        opacity:0;
+      }
+    }
+
+    @media (max-width:700px) {
+
+      main {
+        padding:16px 10px;
+      }
+
+      h1 {
+        font-size:clamp(1.7rem,8vw,2.8rem);
+      }
+
+      .intro {
+        font-size:.82rem;
+        line-height:1.25;
+      }
+
+      .balloon-zone {
+        height:calc(100vh - 125px);
+        margin-top:2px;
+      }
+
+      .balloon {
+        width:90px;
+        height:108px;
+        font-size:.8rem;
+        padding:15px 8px;
+      }
+
+      .balloon:after {
+        bottom:-72px;
+        height:68px;
+      }
+
+      .b1 {
+        left:1%;
+        top:8%;
+      }
+
+      .b2 {
+        left:18%;
+        top:45%;
+      }
+
+      .b3 {
+        left:calc(50% - 45px);
+        top:8%;
+      }
+
+      .b4 {
+        right:18%;
+        top:45%;
+      }
+
+      .b5 {
+        right:1%;
+        top:8%;
+      }
+
+      .word-reveal {
+        width:90px;
+        font-size:.95rem;
+      }
+
+      #final {
+        inset:22% 2% auto;
+        padding:25px 15px;
+      }
+
+      #final h2 {
+        font-size:clamp(1.6rem,7vw,2.5rem);
+      }
+    }
+
+    @media (max-height:700px) and (min-width:701px) {
+
+      main {
+        padding:12px 20px;
+      }
+
+      h1 {
+        font-size:clamp(1.8rem,5vw,3.2rem);
+      }
+
+      .intro {
+        margin-top:5px;
+        font-size:.9rem;
+      }
+
+      .balloon-zone {
+        height:calc(100vh - 100px);
+      }
+
+      .balloon {
+        width:105px;
+        height:125px;
+        font-size:.85rem;
+      }
+
+      .b1,
+      .b3,
+      .b5 {
+        top:5%;
+      }
+
+      .b2,
+      .b4 {
+        top:48%;
+      }
+
+      #final {
+        inset:12% 8% auto;
+        padding:20px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <div class="sparkles"></div>
+
   <main>
+
     <h1>Pop every balloon, Bat Women! 🎈</h1>
-    <p class="intro">Each one is holding a little piece of something I want you to know.</p>
+
+    <p class="intro">
+      Each one is holding a little piece of something I want you to know.
+    </p>
+
     <section class="balloon-zone" aria-label="Five balloons to pop">
-      <button class="balloon b1" data-word="You">Pop me!<br>🎈</button><button class="balloon b2" data-word="are">Pop me!<br>🎈</button><button class="balloon b3" data-word="very">Pop me!<br>🎈</button><button class="balloon b4" data-word="special">Pop me!<br>🎈</button><button class="balloon b5" data-word="to me">Pop me!<br>🎈</button>
-      <div id="final"><span class="heart">♥</span><h2>You are very special to me</h2><p>A message from my heart, just for you.</p><a class="next-page" href="page3.html">Continue ✨</a></div>
+
+      <button
+        class="balloon b1"
+        data-word="You"
+      >
+        Pop me!<br>🎈
+      </button>
+
+      <button
+        class="balloon b2"
+        data-word="are"
+      >
+        Pop me!<br>🎈
+      </button>
+
+      <button
+        class="balloon b3"
+        data-word="very"
+      >
+        Pop me!<br>🎈
+      </button>
+
+      <button
+        class="balloon b4"
+        data-word="special"
+      >
+        Pop me!<br>🎈
+      </button>
+
+      <button
+        class="balloon b5"
+        data-word="to me"
+      >
+        Pop me!<br>🎈
+      </button>
+
+      <div id="final">
+
+        <span class="heart">♥</span>
+
+        <h2>You are very special to me</h2>
+
+        <p>
+          A message from my heart, just for you.
+        </p>
+
+        <a class="next-page" href="page3.html">
+          Continue ✨
+        </a>
+
+      </div>
+
     </section>
+
   </main>
+
   <script>
-    let sound; function sctx(){sound??=new (window.AudioContext||window.webkitAudioContext)();sound.resume();return sound} function popSound(){try{const a=sctx(),b=a.createBuffer(1,a.sampleRate*.12,a.sampleRate),d=b.getChannelData(0),src=a.createBufferSource(),g=a.createGain();for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);src.buffer=b;g.gain.setValueAtTime(.15,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.12);src.connect(g).connect(a.destination);src.start()}catch{}} document.addEventListener('pointerdown',()=>sctx(),{once:true});
-    const balloons=[...document.querySelectorAll('.balloon')]; let popped=0, firstRuns=0;
-    function confetti(x,y){ for(let i=0;i<16;i++){const dot=document.createElement('i');dot.className='burst';dot.style.cssText=`left:${x}px;top:${y}px;--c:${['#f75484','#ffd65a','#7464d8','#59b9aa'][i%4]};--x:${(Math.random()-.5)*190}px;--y:${(Math.random()-.5)*190}px`;document.body.append(dot);setTimeout(()=>dot.remove(),700);} }
-    const first=balloons[0]; first.addEventListener('mouseenter',()=>{if(firstRuns>=2||first.classList.contains('runaway'))return;firstRuns++;first.style.setProperty('--run-x',firstRuns===1?'150px':'-150px');first.style.setProperty('--return-x',firstRuns===1?'-65px':'65px');first.classList.add('runaway');setTimeout(()=>first.classList.remove('runaway'),530)}); balloons.forEach(balloon=>balloon.addEventListener('click',()=>{if(balloon.classList.contains('pop')||(balloon===first&&firstRuns<2))return; const r=balloon.getBoundingClientRect(), zone=document.querySelector('.balloon-zone').getBoundingClientRect();popSound();confetti(r.left+r.width/2,r.top+r.height/2); const word=document.createElement('span');word.className='word-reveal';word.textContent=balloon.dataset.word;word.style.left=`${r.left-zone.left}px`;word.style.top=`${r.top-zone.top+65}px`;document.querySelector('.balloon-zone').append(word);balloon.classList.add('pop');popped++;if(popped===balloons.length)setTimeout(()=>document.getElementById('final').classList.add('show'),750); }));
+
+    let sound;
+
+    function sctx() {
+      sound ??= new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
+      sound.resume();
+
+      return sound;
+    }
+
+    function popSound() {
+
+      try {
+
+        const a = sctx();
+
+        const b = a.createBuffer(
+          1,
+          a.sampleRate * .12,
+          a.sampleRate
+        );
+
+        const d = b.getChannelData(0);
+
+        const src = a.createBufferSource();
+        const g = a.createGain();
+
+        for(let i=0;i<d.length;i++) {
+
+          d[i] =
+            (Math.random()*2-1)
+            * (1-i/d.length);
+
+        }
+
+        src.buffer = b;
+
+        g.gain.setValueAtTime(
+          .15,
+          a.currentTime
+        );
+
+        g.gain.exponentialRampToValueAtTime(
+          .001,
+          a.currentTime+.12
+        );
+
+        src.connect(g).connect(a.destination);
+
+        src.start();
+
+      } catch {}
+
+    }
+
+    document.addEventListener(
+      'pointerdown',
+      ()=>sctx(),
+      {once:true}
+    );
+
+
+    const balloons = [
+      ...document.querySelectorAll('.balloon')
+    ];
+
+    let popped = 0;
+    let firstRuns = 0;
+
+
+    function confetti(x,y) {
+
+      for(let i=0;i<16;i++) {
+
+        const dot =
+          document.createElement('i');
+
+        dot.className = 'burst';
+
+        dot.style.cssText =
+          `left:${x}px;
+          top:${y}px;
+          --c:${[
+            '#f75484',
+            '#ffd65a',
+            '#7464d8',
+            '#59b9aa'
+          ][i%4]};
+          --x:${(Math.random()-.5)*190}px;
+          --y:${(Math.random()-.5)*190}px`;
+
+        document.body.append(dot);
+
+        setTimeout(
+          ()=>dot.remove(),
+          700
+        );
+
+      }
+
+    }
+
+
+    const first = balloons[0];
+
+
+    first.addEventListener(
+      'mouseenter',
+      ()=>{
+
+        if(
+          firstRuns>=2 ||
+          first.classList.contains('runaway')
+        ) return;
+
+        firstRuns++;
+
+        first.style.setProperty(
+          '--run-x',
+          firstRuns===1
+            ? '150px'
+            : '-150px'
+        );
+
+        first.style.setProperty(
+          '--return-x',
+          firstRuns===1
+            ? '-65px'
+            : '65px'
+        );
+
+        first.classList.add('runaway');
+
+        setTimeout(
+          ()=>first.classList.remove('runaway'),
+          530
+        );
+
+      }
+    );
+
+
+    balloons.forEach(
+      balloon => {
+
+        balloon.addEventListener(
+          'click',
+          ()=>{
+
+            if(
+              balloon.classList.contains('pop') ||
+              (balloon===first && firstRuns<2)
+            ) return;
+
+
+            const r =
+              balloon.getBoundingClientRect();
+
+            const zone =
+              document
+                .querySelector('.balloon-zone')
+                .getBoundingClientRect();
+
+
+            popSound();
+
+            confetti(
+              r.left + r.width/2,
+              r.top + r.height/2
+            );
+
+
+            const word =
+              document.createElement('span');
+
+            word.className =
+              'word-reveal';
+
+            word.textContent =
+              balloon.dataset.word;
+
+            word.style.left =
+              `${r.left-zone.left}px`;
+
+            word.style.top =
+              `${r.top-zone.top+65}px`;
+
+            document
+              .querySelector('.balloon-zone')
+              .append(word);
+
+
+            balloon.classList.add('pop');
+
+            popped++;
+
+
+            if(popped===balloons.length) {
+
+              setTimeout(
+                ()=>document
+                  .getElementById('final')
+                  .classList.add('show'),
+                750
+              );
+
+            }
+
+          }
+        );
+
+      }
+    );
+
   </script>
+
 </body>
 </html>
