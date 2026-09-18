@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Selvi!</title>
+  <style>
+    :root { --pink:#ff4d83; --deep:#7d1951; --cream:#fff8f1; --yellow:#ffce54; --purple:#7661d8; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; overflow-x:hidden; color:#571432; font-family:"Trebuchet MS", "Arial Rounded MT Bold", sans-serif; background:radial-gradient(circle at 50% 12%, #fff6da 0 8%, transparent 29%), linear-gradient(145deg,#ffb3cf 0%,#ffc4b7 45%,#bcb7ff 100%); }
+    .sky { position:fixed; inset:0; overflow:hidden; pointer-events:none; }
+    .confetti { position:absolute; width:10px; height:18px; border-radius:4px; background:var(--c); left:var(--x); top:-30px; animation:fall var(--d) linear var(--delay) infinite; transform:rotate(var(--r)); }
+    @keyframes fall { to { top:110vh; transform:translateX(var(--drift)) rotate(620deg); } }
+    .balloon { position:absolute; width:68px; height:82px; border-radius:50% 50% 48% 48%; background:var(--c); top:var(--top); left:var(--left); opacity:.82; animation:float 4s ease-in-out var(--delay) infinite; box-shadow:inset -12px -10px #00000012; }
+    .balloon:after { content:""; position:absolute; bottom:-84px; left:33px; height:84px; border-left:1.5px solid #77495d; transform:rotate(5deg); }
+    .balloon:before { content:""; position:absolute; bottom:-7px; left:27px; border:7px solid transparent; border-top-color:var(--c); }
+    .party-pop { position:fixed; z-index:25; width:10px; height:16px; border-radius:3px; pointer-events:none; background:var(--c); left:50%; top:48%; animation:partyPop .85s cubic-bezier(.1,.8,.2,1) forwards; } @keyframes partyPop { to { transform:translate(var(--dx),var(--dy)) rotate(680deg); opacity:0; } }
+    @keyframes float { 50% { transform:translateY(-20px) rotate(3deg); } }
+    #countdown { position:fixed; z-index:20; inset:0; display:grid; place-items:center; background:linear-gradient(135deg,#5b174f,#b52f69); color:white; transition:opacity .8s, visibility .8s; }
+    #countdown.hide { opacity:0; visibility:hidden; }
+    .count-wrap { text-align:center; animation:pulse .85s ease-in-out infinite alternate; }
+    .count-number { font-size:clamp(8rem,27vw,16rem); font-weight:900; line-height:.8; text-shadow:0 8px 0 #3d1036, 0 0 36px #ffcae4; }
+    .count-label { font-size:clamp(1rem,3vw,1.45rem); letter-spacing:.2em; text-transform:uppercase; margin-top:2rem; }
+    @keyframes pulse { to { transform:scale(1.1) rotate(2deg); } }
+    main { width:min(100%,1100px); min-height:100vh; margin:auto; padding:38px 24px 56px; position:relative; display:flex; flex-direction:column; justify-content:center; text-align:center; }
+    .eyebrow { margin:0; color:#a41f55; font-weight:900; letter-spacing:.16em; text-transform:uppercase; animation:reveal .7s .1s both; }
+    h1 { font-size:clamp(3.3rem,9vw,7rem); line-height:.87; margin:.35rem 0; font-family:Georgia,serif; color:#a41d5a; text-shadow:4px 4px 0 #fff8f1, 7px 7px 0 #f775a4; animation:reveal .8s .3s both; }
+    h1 span { color:#6f3fc0; display:inline-block; transform:rotate(-4deg); }
+    .nicknames { margin:0 0 22px; font-size:clamp(1rem,2.8vw,1.35rem); font-weight:bold; animation:reveal .8s .55s both; }
+    .tag { display:inline-block; margin:3px; padding:6px 14px; border-radius:999px; color:#fff; background:#7b58cf; box-shadow:0 4px 0 #523896; }
+    .tag:last-child { background:#fa5e89; box-shadow:0 4px 0 #b72d59; }
+    .scene { height:340px; max-width:720px; width:100%; margin:0 auto 14px; position:relative; display:grid; place-items:end center; animation:sceneIn 1s .8s both; }
+    .birthday-art { display:block; max-width:100%; max-height:335px; object-fit:contain; filter:drop-shadow(0 15px 11px #86265032); }
+    @keyframes sceneIn { from { opacity:0; transform:translateY(60px) scale(.86); } to { opacity:1; transform:none; } }
+    .ground { position:absolute; height:29px; border-radius:50%; background:#c76a91; opacity:.28; left:6%; right:6%; bottom:0; }
+    .person { position:absolute; bottom:17px; width:145px; height:230px; z-index:2; animation:bob 2.5s ease-in-out infinite; }
+    .person.left { left:5%; animation-delay:.3s; } .person.right { right:5%; animation-delay:.7s; } .person.selvi { left:50%; transform:translateX(-50%); width:175px; height:260px; z-index:4; animation:heroBob 2.5s ease-in-out infinite; }
+    @keyframes bob { 50% { translate:0 -9px; } } @keyframes heroBob { 50% { transform:translateX(-50%) translateY(-10px); } }
+    .head { width:80px; height:85px; margin:auto; background:#a96648; border-radius:48% 48% 45% 45%; position:relative; z-index:2; box-shadow:inset -6px -1px #0000000d; }
+    .selvi .head { width:94px; height:99px; background:#b97555; }
+    .hair { position:absolute; z-index:-1; top:-13px; left:-9px; width:98px; height:98px; border-radius:49% 49% 42% 42%; background:#24192e; } .selvi .hair { left:-11px; width:116px; height:119px; top:-14px; }
+    .face { position:absolute; width:100%; top:37px; display:flex; justify-content:space-around; font-size:15px; } .smile { position:absolute; width:23px; height:11px; border-bottom:3px solid #63263a; border-radius:50%; left:50%; top:57px; transform:translateX(-50%); }
+    .cap { position:absolute; z-index:4; left:50%; top:-42px; width:0; height:0; border-left:52px solid transparent; border-right:52px solid transparent; border-bottom:63px solid #ff557e; transform:translateX(-50%); filter:drop-shadow(0 3px 0 #b12a56); } .cap:after { content:"★"; color:#ffe175; font-size:25px; position:absolute; top:25px; left:-12px; } .cap-label { position:absolute; z-index:5; top:13px; width:100%; color:white; font-size:8px; font-weight:bold; text-align:center; transform:rotate(-31deg); }
+    .body { position:absolute; top:77px; left:50%; transform:translateX(-50%); width:112px; height:140px; border-radius:38px 38px 8px 8px; background:var(--shirt); } .selvi .body { top:89px; width:135px; height:151px; background:#ff5d94; border-radius:50px 50px 15px 15px; }
+    .body:after { content:"♥"; color:white; font-size:28px; position:absolute; top:19px; left:50%; transform:translateX(-50%); }
+    .arm { position:absolute; z-index:1; top:96px; width:32px; height:100px; background:var(--skin); border-radius:20px; transform-origin:top center; } .arm.a1 { left:13px; transform:rotate(26deg); } .arm.a2 { right:13px; transform:rotate(-26deg); } .selvi .arm { top:113px; width:36px; }
+    .cake { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:5; width:116px; height:73px; background:#ffa3be; border-radius:9px 9px 15px 15px; border-bottom:10px solid #df547d; box-shadow:0 6px 0 #9b4a60; } .cake:before { content:""; position:absolute; top:-13px; left:0; right:0; height:22px; background:#fff7dc; border-radius:50%; } .cake:after { content:"🕯️ 🕯️ 🕯️"; position:absolute; top:-43px; left:10px; font-size:25px; white-space:nowrap; }
+    .question { max-width:630px; margin:10px auto 0; padding:20px 24px; border:3px solid #fff9eb; border-radius:25px; background:#ffffffc7; box-shadow:0 12px 25px #8e235442; animation:reveal .9s 1.15s both; }
+    .question p { margin:0 0 15px; font-size:clamp(1.05rem,3vw,1.45rem); font-weight:900; }
+    button { border:0; border-radius:999px; min-width:112px; padding:12px 25px; margin:0 6px; color:white; font:900 1rem inherit; cursor:pointer; box-shadow:0 5px 0 #00000030; transition:transform .15s; } button:hover { transform:translateY(-2px); } #yes { background:linear-gradient(135deg,#ff457b,#bc2d71); } #no { background:linear-gradient(135deg,#8066db,#513da3); position:relative; }
+    #yesMessage { display:none; margin:13px 0 0; color:#a41d5a; font-weight:bold; }
+    @keyframes reveal { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    @media (max-width:560px) { main { padding:30px 14px; justify-content:flex-start; } .scene { height:255px; } .birthday-art { max-height:250px; } .person { scale:.78; transform-origin:bottom; } .person.left { left:-6%; } .person.right { right:-6%; } .person.selvi { scale:.86; } }
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="balloon" style="--c:#ff5d8c;--left:4%;--top:11%;--delay:0s"></div><div class="balloon" style="--c:#8270dc;--left:87%;--top:14%;--delay:1s"></div><div class="balloon" style="--c:#ffcf50;--left:78%;--top:65%;--delay:.4s"></div>
+  </div>
+  <div id="countdown"><div class="count-wrap"><div class="count-number" id="countNumber">10</div><div class="count-label">A little birthday magic is loading</div></div></div>
+  <main>
+    <h1>Happy Birthday<br><span>Selvi!</span></h1>
+    <p class="nicknames">My favorite <span class="tag">Bat Women 🦇</span> <span class="tag">Pani Kutty 🐷</span></p>
+    <section class="scene" aria-label="Selvi and two boys celebrating with a birthday cake">
+      <img class="birthday-art" src="birthday-group-ghibli.png" alt="Selvi in the middle with two boys cutting her birthday cake; the boy on the left wears black square spectacles." />
+    </section>
+    <section class="question"><p>Are you excited for what’s next? ✨</p><button id="yes">YES, obviously! 💖</button><button id="no" aria-label="No, but this button is playful">No</button><p id="yesMessage">Yay! Let’s make this birthday unforgettable… 🎉</p></section>
+  </main>
+  <script>
+    const sky = document.querySelector('.sky');
+    for (let i=0;i<42;i++) { const c=document.createElement('i'); c.className='confetti'; c.style.cssText=`--x:${Math.random()*100}%;--c:${['#ff4d83','#ffce54','#7661d8','#55c6b4','#fff'][i%5]};--d:${4+Math.random()*5}s;--delay:-${Math.random()*8}s;--r:${Math.random()*360}deg;--drift:${-100+Math.random()*200}px`; sky.append(c); }
+    let audio; function ctx(){audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume();return audio} function tone(freq,time=.08,type='sine',volume=.06,at=0){try{const a=ctx(),o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(volume,a.currentTime+at);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+at+time);o.connect(g).connect(a.destination);o.start(a.currentTime+at);o.stop(a.currentTime+at+time)}catch{}} function noise(time=.12,volume=.1,at=0){try{const a=ctx(),b=a.createBuffer(1,a.sampleRate*time,a.sampleRate),d=b.getChannelData(0),s=a.createBufferSource(),g=a.createGain();for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);s.buffer=b;g.gain.setValueAtTime(volume,a.currentTime+at);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+at+time);s.connect(g).connect(a.destination);s.start(a.currentTime+at)}catch{}} document.addEventListener('pointerdown',()=>ctx(),{once:true});
+    function partyBlast(){for(let i=0;i<70;i++){const p=document.createElement('i');p.className='party-pop';p.style.cssText=`--c:${['#ff4d83','#ffce54','#7661d8','#55c6b4','#fff'][i%5]};--dx:${(Math.random()-.5)*innerWidth*.9}px;--dy:${(Math.random()-.5)*innerHeight*.72}px`;document.body.append(p);setTimeout(()=>p.remove(),900)}[523,659,784,1046].forEach((f,i)=>tone(f,.22,'triangle',.08,i*.13));noise(.2,.16,.05);noise(.2,.14,.22)}
+    const n=document.getElementById('countNumber'), overlay=document.getElementById('countdown'); let value=10;
+    const timer=setInterval(()=>{ value--; tone(value===0?880:440,.06,'square',.035); n.textContent=value; if(value===0){ clearInterval(timer); n.textContent='🎉'; partyBlast(); setTimeout(()=>overlay.classList.add('hide'),550); } },650);
+    const no=document.getElementById('no');
+    function dodge(){ const x=(Math.random()-.5)*Math.min(innerWidth*.65,420), y=(Math.random()-.5)*160; no.style.transform=`translate(${x}px,${y}px)`; }
+    no.addEventListener('mouseenter',dodge); no.addEventListener('touchstart',(e)=>{e.preventDefault();dodge()}); no.addEventListener('click',dodge);
+    document.getElementById('yes').addEventListener('click',()=>{ no.style.transform='translate(0,0)'; document.getElementById('yesMessage').style.display='block'; document.getElementById('yes').textContent='You chose wisely! 🎊'; setTimeout(()=>window.location.href='page2.html',2000); });
+  </script>
+</body>
+</html>
